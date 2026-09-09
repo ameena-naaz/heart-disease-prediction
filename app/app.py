@@ -39,7 +39,7 @@ def load_model():
     return joblib.load(MODEL_PATH)
 
 
-try:
+try: 
     model = load_model()
 
 except Exception as error:
@@ -88,10 +88,31 @@ if "patient_data" not in st.session_state:
 # ============================================================
 # GLOBAL CSS
 # ============================================================
-
 st.html(
     """
 <style>
+
+/* =========================================================
+   LIGHT CARDIOSENSE THEME
+========================================================= */
+
+:root {
+    --bg: #EEF2F5;
+    --surface: #F8FAFB;
+    --surface-soft: #F2F5F7;
+    --sidebar: #E5EBF0;
+    --border: #D6DEE5;
+
+    --text: #17212B;
+    --text-soft: #344054;
+    --muted: #667085;
+    --muted-light: #7B8794;
+
+    --red: #D94B45;
+    --cyan: #2B8C95;
+    --green: #258A62;
+}
+
 
 /* =========================================================
    BASE
@@ -101,17 +122,17 @@ st.html(
     background:
         radial-gradient(
             circle at 78% 18%,
-            rgba(255, 73, 73, 0.10),
+            rgba(217, 75, 69, 0.08),
             transparent 30%
         ),
         radial-gradient(
             circle at 45% 88%,
-            rgba(54, 108, 255, 0.06),
+            rgba(43, 140, 149, 0.06),
             transparent 35%
         ),
-        #060A11;
+        #EEF2F5;
 
-    color: #F5F7FA;
+    color: #17212B;
 }
 
 .block-container {
@@ -129,6 +150,21 @@ footer {
     visibility: hidden;
 }
 
+h1,
+h2,
+h3 {
+    color: #17212B !important;
+}
+
+.stCaption,
+[data-testid="stCaptionContainer"] {
+    color: #667085 !important;
+}
+
+hr {
+    border-color: #D6DEE5 !important;
+}
+
 
 /* =========================================================
    SIDEBAR
@@ -138,22 +174,26 @@ section[data-testid="stSidebar"] {
     background:
         linear-gradient(
             180deg,
-            #080C13 0%,
-            #070A10 100%
+            #E8EDF1 0%,
+            #E2E8ED 100%
         );
 
-    border-right: 1px solid rgba(255,255,255,0.07);
+    border-right: 1px solid #D6DEE5;
+}
+
+section[data-testid="stSidebar"] * {
+    color: #17212B;
 }
 
 .brand {
-    color: #F7F8FA;
+    color: #17212B;
     font-size: 25px;
     font-weight: 850;
     margin-bottom: 2px;
 }
 
 .brand-sub {
-    color: #FF6257;
+    color: #D94B45;
     font-size: 10px;
     font-weight: 850;
     letter-spacing: 2.3px;
@@ -161,11 +201,20 @@ section[data-testid="stSidebar"] {
 }
 
 .sidebar-label {
-    color: #586476;
+    color: #667085;
     font-size: 10px;
     font-weight: 800;
     letter-spacing: 2px;
     margin-bottom: 10px;
+}
+
+section[data-testid="stSidebar"] [role="radiogroup"] label {
+    padding: 8px 10px;
+    border-radius: 10px;
+}
+
+section[data-testid="stSidebar"] [role="radiogroup"] label:hover {
+    background: rgba(255,255,255,0.55);
 }
 
 
@@ -174,7 +223,7 @@ section[data-testid="stSidebar"] {
 ========================================================= */
 
 .eyebrow-red {
-    color: #FF6B61;
+    color: #D94B45;
     font-size: 12px;
     letter-spacing: 3px;
     font-weight: 850;
@@ -182,7 +231,7 @@ section[data-testid="stSidebar"] {
 }
 
 .eyebrow-cyan {
-    color: #67E8F9;
+    color: #2B8C95;
     font-size: 12px;
     letter-spacing: 3px;
     font-weight: 850;
@@ -190,7 +239,7 @@ section[data-testid="stSidebar"] {
 }
 
 .hero-title {
-    color: #F7F8FA;
+    color: #17212B;
     font-size: clamp(48px, 5vw, 67px);
     line-height: 1.04;
     font-weight: 850;
@@ -199,7 +248,7 @@ section[data-testid="stSidebar"] {
 }
 
 .page-title {
-    color: #F5F7FA;
+    color: #17212B;
     font-size: 43px;
     line-height: 1.08;
     font-weight: 850;
@@ -207,7 +256,7 @@ section[data-testid="stSidebar"] {
 }
 
 .body-copy {
-    color: #98A2B3;
+    color: #667085;
     font-size: 16px;
     line-height: 1.75;
     max-width: 760px;
@@ -222,11 +271,11 @@ section[data-testid="stSidebar"] {
     background:
         linear-gradient(
             145deg,
-            rgba(18, 27, 42, 0.96),
-            rgba(9, 15, 25, 0.97)
+            rgba(255,255,255,0.96),
+            rgba(247,249,250,0.98)
         );
 
-    border: 1px solid rgba(255,255,255,0.08);
+    border: 1px solid #D6DEE5;
     border-radius: 18px;
 
     padding: 24px;
@@ -234,25 +283,25 @@ section[data-testid="stSidebar"] {
     min-height: 145px;
 
     box-shadow:
-        0 18px 45px rgba(0,0,0,0.18);
+        0 14px 34px rgba(38,56,73,0.08);
 }
 
 .metric-label {
-    color: #98A2B3;
+    color: #667085;
     font-size: 10px;
     font-weight: 850;
     letter-spacing: 1.8px;
 }
 
 .metric-value {
-    color: #F5F7FA;
+    color: #17212B;
     font-size: 34px;
     font-weight: 850;
     margin-top: 12px;
 }
 
 .metric-note {
-    color: #667085;
+    color: #7B8794;
     font-size: 12px;
     margin-top: 6px;
 }
@@ -284,11 +333,11 @@ section[data-testid="stSidebar"] {
 
     border-radius: 50%;
 
-    border: 1px solid rgba(255,98,87,0.12);
+    border: 1px solid rgba(217,75,69,0.18);
 
     box-shadow:
-        0 0 60px rgba(255,98,87,0.08),
-        inset 0 0 60px rgba(255,98,87,0.04);
+        0 0 60px rgba(217,75,69,0.09),
+        inset 0 0 60px rgba(217,75,69,0.035);
 
     animation:
         orbitPulse 3s ease-in-out infinite;
@@ -305,9 +354,9 @@ section[data-testid="stSidebar"] {
     background:
         radial-gradient(
             circle,
-            rgba(255,98,87,0.24),
-            rgba(255,98,87,0.09) 35%,
-            rgba(255,98,87,0.025) 58%,
+            rgba(217,75,69,0.20),
+            rgba(217,75,69,0.08) 35%,
+            rgba(217,75,69,0.025) 58%,
             transparent 73%
         );
 
@@ -339,10 +388,9 @@ section[data-testid="stSidebar"] {
     transform-style: preserve-3d;
 
     filter:
-        drop-shadow(18px 18px 16px rgba(0,0,0,0.55))
-        drop-shadow(-8px -5px 15px rgba(255,130,120,0.10))
-        drop-shadow(0 0 35px rgba(255,98,87,0.32))
-        drop-shadow(0 0 85px rgba(255,98,87,0.14));
+        drop-shadow(15px 18px 16px rgba(58,67,78,0.22))
+        drop-shadow(-5px -4px 12px rgba(255,255,255,0.35))
+        drop-shadow(0 0 28px rgba(217,75,69,0.18));
 }
 
 .heart-shadow {
@@ -356,8 +404,8 @@ section[data-testid="stSidebar"] {
     background:
         radial-gradient(
             ellipse,
-            rgba(255,98,87,0.18),
-            rgba(0,0,0,0) 70%
+            rgba(80,92,105,0.14),
+            rgba(255,255,255,0) 70%
         );
 
     filter: blur(8px);
@@ -511,7 +559,7 @@ section[data-testid="stSidebar"] {
     margin-top: 26px;
 
     box-shadow:
-        0 18px 60px rgba(0,0,0,0.24);
+        0 14px 36px rgba(38,56,73,0.09);
 }
 
 .result-small {
@@ -522,7 +570,7 @@ section[data-testid="stSidebar"] {
 }
 
 .result-title {
-    color: #F5F7FA;
+    color: #17212B;
     font-size: 28px;
     font-weight: 850;
 }
@@ -534,7 +582,7 @@ section[data-testid="stSidebar"] {
 }
 
 .result-caption {
-    color: #98A2B3;
+    color: #667085;
     font-size: 12px;
 }
 
@@ -542,7 +590,7 @@ section[data-testid="stSidebar"] {
     width: 100%;
     height: 9px;
 
-    background: rgba(255,255,255,0.08);
+    background: #DCE3E8;
 
     border-radius: 20px;
 
@@ -552,7 +600,7 @@ section[data-testid="stSidebar"] {
 }
 
 .result-text {
-    color: #D0D5DD;
+    color: #344054;
     font-size: 14px;
     line-height: 1.75;
 }
@@ -566,21 +614,24 @@ section[data-testid="stSidebar"] {
     background:
         linear-gradient(
             145deg,
-            rgba(18,27,42,0.96),
-            rgba(9,15,25,0.98)
+            rgba(255,255,255,0.98),
+            rgba(247,249,250,0.98)
         );
 
-    border: 1px solid rgba(255,255,255,0.08);
+    border: 1px solid #D6DEE5;
 
     border-radius: 18px;
 
     padding: 23px;
 
     min-height: 130px;
+
+    box-shadow:
+        0 12px 30px rgba(38,56,73,0.06);
 }
 
 .performance-number {
-    color: #F5F7FA;
+    color: #17212B;
     font-size: 32px;
     font-weight: 850;
     margin-top: 10px;
@@ -595,29 +646,32 @@ section[data-testid="stSidebar"] {
     background:
         linear-gradient(
             145deg,
-            rgba(17,25,39,0.95),
-            rgba(9,15,24,0.97)
+            rgba(255,255,255,0.98),
+            rgba(247,249,250,0.98)
         );
 
-    border: 1px solid rgba(255,255,255,0.08);
+    border: 1px solid #D6DEE5;
 
     border-radius: 17px;
 
     padding: 20px;
 
     margin-bottom: 13px;
+
+    box-shadow:
+        0 10px 24px rgba(38,56,73,0.055);
 }
 
 .model-card-selected {
     border:
-        1px solid rgba(103,232,249,0.38);
+        1px solid rgba(43,140,149,0.45);
 
     box-shadow:
-        0 0 28px rgba(103,232,249,0.06);
+        0 0 0 3px rgba(43,140,149,0.055);
 }
 
 .model-name {
-    color: #F5F7FA;
+    color: #17212B;
     font-size: 17px;
     font-weight: 800;
 }
@@ -625,12 +679,12 @@ section[data-testid="stSidebar"] {
 .selected-pill {
     display: inline-block;
 
-    background: rgba(103,232,249,0.12);
+    background: rgba(43,140,149,0.10);
 
-    color: #67E8F9;
+    color: #2B8C95;
 
     border:
-        1px solid rgba(103,232,249,0.24);
+        1px solid rgba(43,140,149,0.22);
 
     border-radius: 30px;
 
@@ -657,13 +711,13 @@ section[data-testid="stSidebar"] {
 }
 
 .model-data-label {
-    color: #667085;
+    color: #7B8794;
     font-size: 10px;
     letter-spacing: 1px;
 }
 
 .model-data-value {
-    color: #D0D5DD;
+    color: #344054;
     font-size: 16px;
     font-weight: 750;
     margin-top: 3px;
@@ -678,16 +732,19 @@ section[data-testid="stSidebar"] {
     background:
         linear-gradient(
             145deg,
-            rgba(17,25,39,0.95),
-            rgba(9,15,24,0.97)
+            rgba(255,255,255,0.98),
+            rgba(247,249,250,0.98)
         );
 
     border:
-        1px solid rgba(255,255,255,0.08);
+        1px solid #D6DEE5;
 
     border-radius: 18px;
 
     padding: 24px;
+
+    box-shadow:
+        0 10px 24px rgba(38,56,73,0.055);
 }
 
 .matrix-heading {
@@ -715,7 +772,7 @@ section[data-testid="stSidebar"] {
 
     align-items: center;
 
-    color: #98A2B3;
+    color: #667085;
 
     font-size: 11px;
 
@@ -725,7 +782,7 @@ section[data-testid="stSidebar"] {
 .matrix-top-label {
     text-align: center;
 
-    color: #667085;
+    color: #7B8794;
 
     font-size: 10px;
 
@@ -742,28 +799,28 @@ section[data-testid="stSidebar"] {
 
 .matrix-correct {
     background:
-        rgba(50,213,131,0.10);
+        rgba(37,138,98,0.08);
 
     border:
-        1px solid rgba(50,213,131,0.22);
+        1px solid rgba(37,138,98,0.22);
 }
 
 .matrix-error {
     background:
-        rgba(255,98,87,0.08);
+        rgba(217,75,69,0.07);
 
     border:
-        1px solid rgba(255,98,87,0.18);
+        1px solid rgba(217,75,69,0.18);
 }
 
 .matrix-number {
-    color: #F5F7FA;
+    color: #17212B;
     font-size: 29px;
     font-weight: 850;
 }
 
 .matrix-sub {
-    color: #667085;
+    color: #7B8794;
     font-size: 10px;
     margin-top: 4px;
 }
@@ -777,27 +834,89 @@ section[data-testid="stSidebar"] {
     background:
         linear-gradient(
             145deg,
-            rgba(17,25,39,0.94),
-            rgba(9,15,24,0.97)
+            rgba(255,255,255,0.98),
+            rgba(247,249,250,0.98)
         );
 
     border:
-        1px solid rgba(255,255,255,0.08);
+        1px solid #D6DEE5;
 
     border-radius: 18px;
 
     padding: 25px;
+
+    box-shadow:
+        0 10px 24px rgba(38,56,73,0.055);
 }
 
 .workflow-line {
-    color: #D0D5DD;
+    color: #344054;
     font-size: 14px;
     line-height: 2;
 }
 
 
 /* =========================================================
-   FORM
+   STREAMLIT FORM ELEMENTS
+========================================================= */
+
+[data-baseweb="input"] > div,
+[data-baseweb="select"] > div,
+[data-testid="stNumberInput"] input,
+[data-testid="stTextInput"] input {
+    background: #F8FAFB !important;
+    color: #17212B !important;
+    border-color: #D6DEE5 !important;
+}
+
+[data-baseweb="select"] * {
+    color: #17212B !important;
+}
+
+div[data-baseweb="popover"] > div {
+    background: #F8FAFB !important;
+    color: #17212B !important;
+}
+
+div[data-baseweb="menu"] {
+    background: #F8FAFB !important;
+}
+
+div[data-baseweb="option"] {
+    color: #17212B !important;
+}
+
+div[data-baseweb="option"]:hover {
+    background: #E8EEF2 !important;
+}
+
+.stForm {
+    border-color: #D6DEE5 !important;
+}
+
+
+/* =========================================================
+   STREAMLIT METRICS
+========================================================= */
+
+[data-testid="stMetric"] {
+    background: rgba(255,255,255,0.72);
+
+    border: 1px solid #D6DEE5;
+
+    border-radius: 14px;
+
+    padding: 14px 16px;
+}
+
+[data-testid="stMetricLabel"],
+[data-testid="stMetricValue"] {
+    color: #17212B !important;
+}
+
+
+/* =========================================================
+   BUTTON
 ========================================================= */
 
 .stButton > button,
@@ -814,14 +933,23 @@ section[data-testid="stSidebar"] {
     font-weight: 800;
 
     border:
-        1px solid rgba(255,98,87,0.55);
+        1px solid rgba(217,75,69,0.55);
 
     background:
         linear-gradient(
             90deg,
-            #FF6257,
-            #FF746B
+            #D94B45,
+            #E56760
         );
+
+    box-shadow:
+        0 8px 18px rgba(217,75,69,0.15);
+}
+
+.stButton > button:hover,
+[data-testid="stFormSubmitButton"] > button:hover {
+    border-color: #C73E39;
+    color: white;
 }
 
 
@@ -862,7 +990,6 @@ section[data-testid="stSidebar"] {
 </style>
 """
 )
-
 
 # ============================================================
 # HELPERS
